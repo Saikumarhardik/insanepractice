@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "insane-rg"
+  name     = "insane-rg-3"
   location = "East US"
 }
 
