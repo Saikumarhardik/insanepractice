@@ -5,6 +5,9 @@ on:
     branches:
       - main  # Trigger workflow on push to the main branch
 
+permissions:
+  id-token: write
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
