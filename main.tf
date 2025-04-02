@@ -16,3 +16,8 @@ resource "azurerm_resource_group" "example" {
   name     = "insane-rg"
   location = "East US"
 }
+
+resource "azurerm_resource_group" "example2" {
+  name     = "insane-rg-2"
+  location = "East US"
+}
