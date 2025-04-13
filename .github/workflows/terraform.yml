@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
- 
- 
 
 permissions:
   id-token: write
@@ -27,27 +25,34 @@ jobs:
     - name: Log in to Azure
       uses: azure/login@v1
       with:
-        creds: ${{secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-
-    - name: get secrets from key vault
+    # Step 4: Get secrets from Azure Key Vault
+    - name: Get secrets from Key Vault
+      id: get_secrets
       uses: azure/get-keyvault-secrets@v1
       with:
         keyvault: hardik-keyvault
         secrets: my-secret
 
-    - name: Use the secret
-      run: echo "Secret value ${MY_SECRET}"
+    # Step 5: Export secret as an environment variable for use in later steps
+    - name: Export secret
+      run: |
+        echo "MY_SECRET=${{ steps.get_secrets.outputs.my-secret }}" >> $GITHUB_ENV
 
-    # Step 4: Initialize Terraform
+    # Step 6: Use the secret in Terraform configuration (or elsewhere)
+    - name: Use the secret
+      run: echo "Secret value is $MY_SECRET"
+
+    # Step 7: Initialize Terraform
     - name: Terraform Init
       run: terraform init
 
-    # Step 5: Validate Terraform configuration
+    # Step 8: Validate Terraform configuration
     - name: Terraform Validate
       run: terraform validate
 
-    # Step 6: Apply Terraform configuration
+    # Step 9: Apply Terraform configuration
     - name: Terraform Apply
       run: terraform apply -auto-approve
       env:
@@ -55,3 +60,4 @@ jobs:
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        MY_SECRET: ${{ secrets.MY_SECRET }} # Use the secret in Terraform or other steps
