@@ -41,8 +41,8 @@ jobs:
         echo "MY_SECRET=${{ steps.get_secrets.outputs.my-secret }}" >> $GITHUB_ENV
 
     # Step 6: Use the secret in later steps
-    - name: Use the secret
-      run: echo "Secret length is ${#MY_SECRET}"
+    - name: print value of secret
+      run: echo "Secret value is ${MY_SECRET}"
 
     - name: Check secret length
       run: echo "Secret length is ${#MY_SECRET}"
