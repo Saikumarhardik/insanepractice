@@ -35,14 +35,14 @@ jobs:
         keyvault: hardik-keyvault
         secrets: my-secret
 
-    # Step 5: Export secret as an environment variable for use in later steps
-    - name: Export secret
+    # Step 5: Export the secret to the environment variable
+    - name: Export secret to environment
       run: |
         echo "MY_SECRET=${{ steps.get_secrets.outputs.my-secret }}" >> $GITHUB_ENV
 
-    # Step 6: Use the secret in Terraform configuration (or elsewhere)
+    # Step 6: Use the secret in later steps
     - name: Use the secret
-      run: echo "Secret value is $MY_SECRET"
+      run: echo "The secret value is $MY_SECRET"
 
     # Step 7: Initialize Terraform
     - name: Terraform Init
