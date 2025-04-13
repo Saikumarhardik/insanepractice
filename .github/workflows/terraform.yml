@@ -33,11 +33,11 @@ jobs:
     - name: get secrets from key vault
       uses: azure/get-keyvault-secrets@v1
       with:
-        keyvault: hardik-keyvault
-        secrets: 'my-secret'
+        keyvault: ${{ secrets.KEYVAULT_NAME }}
+        secrets: ${{ secrets.SECRET_NAME }}
 
     - name: Use the secret
-      run: echo "The secret is $MY-SECRET"
+      run: echo "Secret value: $MY_SECRET"
 
     # Step 4: Initialize Terraform
     - name: Terraform Init
