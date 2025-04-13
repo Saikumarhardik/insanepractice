@@ -40,7 +40,7 @@ jobs:
       run: az keyvault secret list --vault-name hardik-keyvault --query "[].name" -o table
 
     - name: Use the secret
-      run: echo "Secret value $MY-SECRET"
+      run: echo "Secret value ${MY_SECRET}"
 
     # Step 4: Initialize Terraform
     - name: Terraform Init
