@@ -34,7 +34,7 @@ jobs:
       uses: azure/get-keyvault-secrets@v1
       with:
         keyvault: hardik-keyvault
-        secrets: 'clientSecret'
+        secrets: 'my-secret'
 
     - name: Use the secret
       run: echo "The secret is $CLIENTSECRET"
