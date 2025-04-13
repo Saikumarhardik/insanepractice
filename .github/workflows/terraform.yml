@@ -32,6 +32,16 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}        # Azure Tenant ID
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  
 
+
+    - name: get secrets from key vault
+      uses: azure/get-keyvault-secrets@v1
+      with:
+        keyvault: hardik-keyvault
+        secrets: 'clientSecret'
+
+    - name: Use the secret
+      run: echo "The secret is $CLIENTSECRET"
+
     # Step 4: Initialize Terraform
     - name: Terraform Init
       run: terraform init
