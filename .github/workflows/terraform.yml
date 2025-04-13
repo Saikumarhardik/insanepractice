@@ -36,10 +36,6 @@ jobs:
         keyvault: hardik-keyvault
         secrets: my-secret
 
-    - name: List secret names
-      run: MY_SECRET=$(az keyvault secret show --vault-name hardik-keyvault --name my-secret --query "value" -o tsv)
-
-
     - name: Use the secret
       run: echo "Secret value ${MY_SECRET}"
 
