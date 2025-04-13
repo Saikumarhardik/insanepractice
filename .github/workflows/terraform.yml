@@ -27,10 +27,7 @@ jobs:
     - name: Log in to Azure
       uses: azure/login@v1
       with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}        # Service Principal Client ID
-        client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}  # Service Principal Client Secret
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}        # Azure Tenant ID
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 
     - name: get secrets from key vault
