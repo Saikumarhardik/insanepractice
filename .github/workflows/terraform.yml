@@ -37,7 +37,7 @@ jobs:
         secrets: 'my-secret'
 
     - name: Use the secret
-      run: echo "The secret is $CLIENTSECRET"
+      run: echo "The secret is $my-secret"
 
     # Step 4: Initialize Terraform
     - name: Terraform Init
