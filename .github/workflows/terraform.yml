@@ -35,17 +35,31 @@ jobs:
         keyvault: hardik-keyvault
         secrets: my-secret
 
-    # Step 5: Export the secret to the environment variable
-    - name: Export secret to environment
+        
+    - name: Fetch Secret from Azure Key Vault
+      id: fetch_secret
       run: |
-        echo "MY_SECRET=${{ steps.get_secrets.outputs.my-secret }}" >> $GITHUB_ENV
+        SECRET=$(az keyvault secret show --name hardik-keyvault --vault-name my-secret --query value -o tsv)
+        echo "Secret fetched: $SECRET"
+        echo "::set-output name=secret::$SECRET"
 
-    # Step 6: Use the secret in later steps
-    - name: print value of secret
-      run: echo "Secret value is ${MY_SECRET}"
+    # Step 4: Use the secret in subsequent steps
+    
+    - name: Use the Secret
+      run: |
+        echo "The fetched secret is: ${{ steps.fetch_secret.outputs.secret }}"
 
-    - name: Check secret length
-      run: echo "Secret length is ${#MY_SECRET}"
+    # # Step 5: Export the secret to the environment variable
+    # - name: Export secret to environment
+    #   run: |
+    #     echo "MY_SECRET=${{ steps.get_secrets.outputs.my-secret }}" >> $GITHUB_ENV
+
+    # # Step 6: Use the secret in later steps
+    # - name: print value of secret
+    #   run: echo "Secret value is ${MY_SECRET}"
+
+    # - name: Check secret length
+    #   run: echo "Secret length is ${#MY_SECRET}"
     
 
     # Step 7: Initialize Terraform
