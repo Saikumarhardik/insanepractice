@@ -39,7 +39,7 @@ jobs:
     - name: Fetch Secret from Azure Key Vault
       id: fetch_secret
       run: |
-        SECRET=$(az keyvault secret show --name hardik-keyvault --vault-name my-secret --query value -o tsv)
+        SECRET=$(az keyvault secret show --name my-secret --vault-name hardik-keyvault --query value -o tsv)
         echo "Secret fetched: $SECRET"
         echo "::set-output name=secret::$SECRET"
 
